@@ -1,4 +1,4 @@
-﻿uses GraphABC, Gosa_Module;
+uses GraphABC, Gosa_Module;
 
 var
   x0, y0, x00, y00, mas, n: integer;
@@ -9,6 +9,7 @@ function KU(i:integer):integer; forward;
 function KD(i:integer):integer; forward;
 function KR(i:integer):integer; forward;
 function KL(i:integer):integer; forward;
+function per: integer; forward;
 
 function KU( i: integer): integer;
 begin
@@ -69,16 +70,15 @@ end;
 procedure KeyGosa(key:integer);
 begin
   case key of
-    VK_Up : y00:=y00-10;
-    VK_Down : y00:=y00+10;
-    VK_Left : x00:=x00-10;
-    VK_Right : x00:=x00+10;
-    $BB : mas:=mas+2;
-    $BD : if mas > 0 then mas:=mas-2;
-    $39 : if n<10 then n:=n+1;
-    $38 : if n>0 then n:=n-1;
+    VK_Up : begin y00:=y00-10; per; end;
+    VK_Down : begin y00:=y00+10; per; end;
+    VK_Left : begin x00:=x00-10; per; end;
+    VK_Right : begin x00:=x00+10; per; end;
+    $BB : begin mas:=mas+2; per; end;
+    $BD : begin if mas > 0 then mas:=mas-2; per; end;
+    $39 : begin if n<10 then n:=n+1; per; end;
+    $38 : begin if n>0 then n:=n-1; per; end;
   end;
-  clearwindow;
 end;
 
 function per: integer;
@@ -90,7 +90,6 @@ begin
   sleep(10);
   KU(n);
   onKeyDown:=keyGosa;
-  per;
 end;
 
 begin
